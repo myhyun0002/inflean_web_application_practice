@@ -1,5 +1,6 @@
 package com.example.studyolle.config;
 
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -31,9 +32,12 @@ public class SecurityConfiguration {
                         .requestMatchers(mvcMatcherBuilder.pattern("/check-email-login")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/login-link")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET,"/profile/*")).permitAll()
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());
         return http.build();
     }
+
+
 }
